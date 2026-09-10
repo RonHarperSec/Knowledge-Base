@@ -19,9 +19,7 @@ I build to practise skills adjacent to my role.
 
 ## Home lab
 
-Most of these projects are built against or tested in a self-built lab environment:
-a segmented network with a firewall, a Windows domain, client machines, an isolated
-attack network, and log forwarding into a SIEM. Built, broken and rebuilt by me.
+Most of these projects are built against or tested in a self-built lab environment: a segmented network with a firewall, a Windows domain, client machines, an isolated attack network, and log forwarding into a SIEM, plus a Linux Docker host for running containerised tooling and CI/CD work. Built, broken and rebuilt by me.
 
 ## About
 
