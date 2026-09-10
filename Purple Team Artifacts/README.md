@@ -11,7 +11,7 @@ that exist but don't fire. Each write-up documents the technique, what it looked
 the telemetry, the detection built to catch it, and the false positives worth tuning for.
 
 Environment: a segmented Windows domain lab (Windows Server 2025 DC, Windows client,
-Kali attack host) with logs forwarded into Splunk. See the
+Kali attack host, and a Linux Docker host) with logs forwarded into Splunk. See the
 [home lab setup](../HomeLabSetup.md) for the architecture.
 
 ## Artefacts
@@ -19,5 +19,12 @@ Kali attack host) with logs forwarded into Splunk. See the
 | Technique | ATT&CK | What it tests | Outcome |
 |---|---|---|---|
 | Brute Force | [T1110](https://attack.mitre.org/techniques/T1110/) | Detection of remote failed-logon bursts against a Domain Controller | Found the DC wasn't forwarding Security logs, fixed the telemetry, built and deployed a detection |
+| Account Creation & Privilege Escalation | [T1136.002](https://attack.mitre.org/techniques/T1136/002/) / [T1098](https://attack.mitre.org/techniques/T1098/) | Detection of a rogue account being created and elevated to Domain Admins for persistence | Found account-management auditing was disabled entirely, enabled it, and built three detections including a create-then-elevate correlation |
 
 *More techniques will be added here as I work through them.*
+
+---
+
+The two exercises so far trace a small attack chain: **T1110** covers getting in
+(brute-forcing credentials), and **T1136.002 / T1098** covers staying in (creating a
+privileged account for persistence once inside). More techniques will extend the chain.
