@@ -13,7 +13,7 @@ I build to practise skills adjacent to my role.
 | Project | Description |
 |---|---|
 | [Purple Team Artefacts](https://github.com/RonHarperSec/Knowledge-Base/tree/main/Purple%20Team%20Artifacts) | Detection-focused exercises: run an attacker technique in the lab, confirm what it generates in the logs, and build a detection to catch it. First up is a brute-force detection (T1110) against a Domain Controller, including finding and fixing the telemetry gaps that were hiding the attack. |
-| [cve-asset-matcher](https://github.com/RonHarperSec/cve-asset-matcher) | Vulnerability intelligence pipeline. Pulls CISA KEV and NVD data and matches it against an inventory of a real environment, so the output is vulnerabilities that affect *this* estate rather than a feed of everything. Python, with containerisation and SIEM output planned. |
+| [cve-asset-matcher](https://github.com/RonHarperSec/cve-asset-matcher) | Vulnerability intelligence pipeline. Pulls CISA KEV and NVD data and matches it against an inventory of a real environment, so the output is vulnerabilities that affect this estate rather than a feed of everything. Python, with a full CI/CD pipeline (pytest, GitHub Actions, Docker image built and published to a registry on every push). SIEM output planned. |
 
 
 *More projects will be added as they're built out.*
