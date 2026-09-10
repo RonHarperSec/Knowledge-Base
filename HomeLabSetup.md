@@ -15,24 +15,24 @@ try in production.
 
 ## Architecture
 
-    ┌─────────────────────────────────────────────────┐
-    │  Host (currently a home workstation,             │
-    │   plans to migrate to Proxmox in the future)     │
-    │                                                  │
-    │   ┌─────────┐   green (LAN)                      │
-    │   │ IPFire  │───────────────┬──────────┐         │
-    │   │firewall │               │          │         │
-    │   └────┬────┘          ┌────┴────┐ ┌───┴────┐    │
-    │        │               │ Windows │ │ Ubuntu │    │
-    │      blue (isolated)   │ Server  │ │ Splunk │    │
-    │   ┌────┴────┐          │  (DC)   │ │ (SIEM) │    │
-    │   │  Kali   │          └─────────┘ └────────┘    │
-    │   │ attack  │               │                    │
-    │   └─────────┘          ┌────┴────┐               │
-    │                        │ Windows │               │
-    │                        │11 client│               │
-    │                        └─────────┘               │
-    └─────────────────────────────────────────────────┘
+    ┌──────────────────────────────────────────────────────┐
+    │  Host (currently a home workstation under Hyper-V,     │
+    │   with a planned migration to a dedicated Proxmox box) │
+    │                                                        │
+    │   ┌─────────┐   green (LAN)                            │
+    │   │ IPFire  │──────────┬──────────┬──────────┐         │
+    │   │firewall │          │          │          │         │
+    │   └────┬────┘     ┌────┴────┐ ┌───┴────┐ ┌───┴────┐    │
+    │        │          │ Windows │ │ Ubuntu │ │ Ubuntu │    │
+    │      blue         │ Server  │ │ Splunk │ │ Docker │    │
+    │   (isolated)      │  (DC)   │ │ (SIEM) │ │  host  │    │
+    │   ┌────┴────┐     └─────────┘ └────────┘ └────────┘    │
+    │   │  Kali   │          │                               │
+    │   │ attack  │     ┌────┴────┐                          │
+    │   └─────────┘     │ Windows │                          │
+    │                   │11 client│                          │
+    │                   └─────────┘                          │
+    └──────────────────────────────────────────────────────┘
 
 ## Components
 
@@ -51,19 +51,23 @@ logs here, which is where detection and threat-hunting work happens.
 **Kali** — the attack box, in the isolated segment. Used to emulate attacker behaviour
 against the domain so I can test whether the telemetry catches it.
 
+**Ubuntu Docker host** — a headless Linux host running Docker Engine, used to build and
+run containerised tooling and to host the CI/CD work for my projects (for example the
+cve-asset-matcher pipeline, which builds a container image and runs it here).
+
 ## Things I've built and fixed
 
 - Deployed and troubleshot Splunk Universal Forwarders across the estate
 - Recovered IPFire static routing after a misconfiguration broke inter-zone traffic
 - Set up remote access over OpenVPN with dynamic DNS
 - Segmented the attack network so the Kali host is contained rather than free-roaming
-- Migrated the whole environment between hypervisors
 
 ## Current state
 
-Built on Proxmox, currently running on a workstation after the dedicated lab hardware
-failed. The environment is being kept portable so it can move cleanly back onto
-Proxmox once replacement hardware is in place.
+Runs on a home workstation under Hyper-V. The plan was to migrate the lab onto a
+dedicated Proxmox host, but that hardware failed during setup, so it stays on the
+workstation for now. It's kept portable so it can move cleanly onto Proxmox once the
+hardware is replaced.
 
 ## Planned
 
